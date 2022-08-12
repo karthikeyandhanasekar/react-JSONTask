@@ -1,22 +1,46 @@
 import React from "react"
 import { Form, Table, Button } from "react-bootstrap"
+import Pagination from 'react-bootstrap/Pagination';
+
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux";
 import { removeemployee } from "../redux/slice";
 
 
 
+
 const EntryDisplay = () => {
     const [filtervalue, setvalues] = React.useState('')
+    const [currentpage, setcurrentpage] = React.useState(1)
     const employeedetails = useSelector(state => state.employeeslice.reducer.employeedetails)
     const [UIdata, setUIdata] = React.useState('')
     const dispatch = useDispatch()
 
 
+    const changepageno = (pageno) => {
+        setcurrentpage(pageno)
+    }
+
+    const PageItem = [...Array(employeedetails.length / 2).keys()].slice(1,)
+        .map(number =>
+            <Pagination.Item onClick={() => changepageno(number)} key={number} active={number === currentpage}>
+                {number}
+            </Pagination.Item>)
+
+
+
+    //when pageno change 
     React.useEffect(() => {
+        const size = 3
+        const p = currentpage - 1
+
+        const start = size * p
+
+        const end = (size * currentpage) - 1
+
+
         const roworder = ['userId', 'firstName', 'lastName', 'jobTitleName', 'employeeCode', 'region', 'phoneNumber', 'emailaddress']
 
-        console.log(employeedetails);
         const rowUI = React.Children.toArray(
             employeedetails.map(detail => (
                 <tr>
@@ -44,18 +68,18 @@ const EntryDisplay = () => {
             )
 
 
-            )).reverse()
+            )).reverse().slice(start, end + 1)
 
 
         setUIdata(rowUI)
         // remove employee
         const deleteemployee = (id) => {
-            console.log(id);
             dispatch(removeemployee(id))
         }
 
+    }, [employeedetails, currentpage])
 
-    }, [employeedetails])
+
 
 
 
@@ -96,7 +120,9 @@ const EntryDisplay = () => {
                     {UIdata}
                 </tbody>
             </Table>
-
+            <Pagination className="  border-2  float-end">
+                {PageItem}
+            </Pagination>
 
         </>
     )

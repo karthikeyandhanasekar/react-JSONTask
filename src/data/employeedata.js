@@ -31,5 +31,38 @@ export const Employees = [
         "region": "CA",
         "phoneNumber": "408-2222222",
         "emailaddress": "tomhanks@gmail.com"
+    },
+    {
+        "userId": "welcome",
+        "jobTitleName": "UI Developer",
+        "firstName": "Ajith",
+        "lastName": "Krishnan",
+        "preferredFullName": "Ajith Krishnan",
+        "employeeCode": "E4",
+        "region": "IA",
+        "phoneNumber": "408-11111111",
+        "emailaddress": "ajithkrishnan@gmail.com"
+    },
+    {
+        "userId": "happy",
+        "jobTitleName": "Digital Head Officer",
+        "firstName": "Arun",
+        "lastName": "Raj",
+        "preferredFullName": "Arun Raj",
+        "employeeCode": "E5",
+        "region": "CA",
+        "phoneNumber": "408-4444444",
+        "emailaddress": "arunraj@gmail.com"
+    },
+    {
+        "userId": "sad",
+        "jobTitleName": "Digital Marketer",
+        "firstName": "Sarathy",
+        "lastName": "Prakash",
+        "preferredFullName": "Sarathy Prakash",
+        "employeeCode": "E7",
+        "region": "IA",
+        "phoneNumber": "408-4444444",
+        "emailaddress": "prakashsarathy@gmail.com"
     }
 ]
