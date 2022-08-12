@@ -8,7 +8,7 @@ import { employeestores } from "./redux/store";
 function App() {
   return (
     <Provider store={employeestores}>
-      <div className="App px-2 ">
+      <div className="App px-4 ">
         <Header />
         <FormEntry />
         <EntryDisplay />

@@ -87,7 +87,7 @@ const EntryDisplay = () => {
 
 
 
-
+    
 
 
     return (
