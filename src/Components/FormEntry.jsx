@@ -1,14 +1,19 @@
 import React from "react"
 import { Form, Row, Col, InputGroup, Button } from "react-bootstrap"
+import { useDispatch } from "react-redux";
+import { addemployee } from "../redux/slice";
 
 
 const FormEntry = () => {
 
     const [values, setvalues] = React.useState({})
+    const dispatch = useDispatch()
 
 
     const handlesubmit = (e) => {
-        console.log(e.target.value);
+        e.preventDefault()
+        dispatch(addemployee(values))
+
     }
 
 
@@ -18,20 +23,19 @@ const FormEntry = () => {
         setvalues(data => (
             {
                 ...data,
-                [key]: value
+                [key]: value,
+                userId: Math.floor(Math.random() * 1000)
             }
         ))
-
-        console.log(values);
-
     }
 
     return (
-        <Form className="p-2 " onSubmit={handlesubmit}>
+        <Form className="p-2 mb-3" onSubmit={handlesubmit}>
             <Row className="mb-3">
 
                 {/* First Name */}
                 <Col md={2} className="mb-3" >
+
                     <Form.Control type="text" name="firstName" onKeyUp={InputChange}
                         className="border-0 border-bottom " required autoFocus placeholder="First Name" />
                 </Col>
@@ -39,26 +43,26 @@ const FormEntry = () => {
                 {/* Last Name */}
                 <Col md={2} className="mb-3" >
                     <Form.Control type="text" name="lastName" onKeyUp={InputChange}
-                        className="border-0 border-bottom " required autoFocus placeholder="Last Name" />
+                        className="border-0 border-bottom  " required autoFocus placeholder="Last Name" />
                 </Col>
 
                 {/* jobTitleName */}
                 <Col md={3} className="mb-3" >
                     <Form.Control type="text" name="jobTitleName" onKeyUp={InputChange}
-                        className="border-0 border-bottom " required autoFocus placeholder="Job Title" />
+                        className="border-0 border-bottom  " required autoFocus placeholder="Job Title" />
                 </Col>
 
                 {/* employeeCode */}
                 <Col md={2} className="mb-3" >
                     <Form.Control type="text" name="employeeCode" onKeyUp={InputChange}
-                        className="border-0 border-bottom " required autoFocus placeholder="Employee Code" />
+                        className="border-0 border-bottom  " required autoFocus placeholder="Employee Code" />
                 </Col>
 
 
                 {/* Region */}
                 <Col md={2} className="mb-3" >
                     <Form.Control type="text" name="region" onKeyUp={InputChange}
-                        className="border-0 border-bottom " required autoFocus placeholder="Region" />
+                        className="border-0 border-bottom  " required autoFocus placeholder="Region" />
 
                 </Col>
             </Row>
@@ -68,7 +72,7 @@ const FormEntry = () => {
                 {/* emailaddress */}
                 <Col md={3} className="mb-3" >
                     <Form.Control type="email" name="emailaddress" onKeyUp={InputChange}
-                        className="border-0 border-bottom " required autoFocus placeholder="Email ID" />
+                        className="border-0 border-bottom  " required autoFocus placeholder="Email ID" />
                 </Col>
 
                 {/* phoneNumber */}
@@ -76,7 +80,7 @@ const FormEntry = () => {
                     <InputGroup className="mb-3">
                         <InputGroup.Text id="408">408</InputGroup.Text>
                         <Form.Control type="phone" name="phoneNumber" onKeyUp={InputChange} aria-describedby="408"
-                            className="border-0 border-bottom " required autoFocus placeholder="11112020" />
+                            className="border-0 border-bottom  " required autoFocus placeholder="11112020" />
 
                     </InputGroup>
                 </Col>
