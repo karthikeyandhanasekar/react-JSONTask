@@ -1,5 +1,5 @@
 import React from "react"
-import { Form, Table, Button } from "react-bootstrap"
+import { Form, Table, Button, Row, Col } from "react-bootstrap"
 import Pagination from 'react-bootstrap/Pagination';
 
 import { useSelector } from "react-redux"
@@ -12,6 +12,8 @@ import { removeemployee } from "../redux/slice";
 const EntryDisplay = () => {
     const [filtervalue, setvalues] = React.useState('')
     const [currentpage, setcurrentpage] = React.useState(1)
+    const [size, setsize] = React.useState(3)
+
     const employeedetails = useSelector(state => state.employeeslice.reducer.employeedetails)
     const [UIdata, setUIdata] = React.useState('')
     const dispatch = useDispatch()
@@ -20,18 +22,16 @@ const EntryDisplay = () => {
     const changepageno = (pageno) => {
         setcurrentpage(pageno)
     }
-
-    const PageItem = [...Array(employeedetails.length / 2).keys()].slice(1,)
+    const PageItem = [...Array(size).keys()]
         .map(number =>
-            <Pagination.Item onClick={() => changepageno(number)} key={number} active={number === currentpage}>
-                {number}
+            <Pagination.Item onClick={() => changepageno(number + 1)} key={number + 1} active={number + 1 === currentpage}>
+                {number + 1}
             </Pagination.Item>)
 
 
 
     //when pageno change 
     React.useEffect(() => {
-        const size = 3
         const p = currentpage - 1
 
         const start = size * p
@@ -44,7 +44,13 @@ const EntryDisplay = () => {
         const rowUI = React.Children.toArray(
             employeedetails.map(detail => (
                 <tr>
-                    <td></td>
+                    <td>
+                        <Form.Check
+                            type={'checkbox'}
+                            value={detail}
+                        />
+
+                    </td>
                     {roworder.map(row => React.Children.toArray(
                         <td>{detail[row]}</td>
                     )).flat(0)
@@ -77,7 +83,7 @@ const EntryDisplay = () => {
             dispatch(removeemployee(id))
         }
 
-    }, [employeedetails, currentpage])
+    }, [employeedetails, currentpage, size, dispatch])
 
 
 
@@ -103,7 +109,11 @@ const EntryDisplay = () => {
             <Table responsive>
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>
+                            <Form.Check
+                                type={'checkbox'}
+                            />
+                        </th>
                         <th>ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
@@ -120,9 +130,30 @@ const EntryDisplay = () => {
                     {UIdata}
                 </tbody>
             </Table>
-            <Pagination className="  border-2  float-end">
-                {PageItem}
-            </Pagination>
+            <div className="d-flex justify-content-between align-items-center ">
+                <div>
+                    <div className="d-flex">
+                        {/* <div className="me-2">Items per Page</div>
+                        <div>
+                            <Form.Select aria-label="Default select example" onChange={(e)=>setsize(e.target.value)} className="border-0 border-bottom">
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </Form.Select>
+                        </div> */}
+                    </div>
+                </div>
+                <div>
+                    <p>{currentpage}-{size} of {size}</p>
+                </div>
+                <div>
+
+                    <Pagination className="">
+                        {PageItem}
+                    </Pagination>
+                </div>
+            </div>
+
 
         </>
     )
